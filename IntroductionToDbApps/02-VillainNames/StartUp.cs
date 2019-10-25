@@ -3,7 +3,7 @@
     using System;
     using System.Data.SqlClient;
 
-    public class VillainNames
+    public class StartUp
     {
         public const string connectionStringMinionsDB = "Server=.;Database=MinionsDB;Integrated Security = true;";
 

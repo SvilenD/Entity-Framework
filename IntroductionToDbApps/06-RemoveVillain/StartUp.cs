@@ -3,7 +3,7 @@
     using System;
     using System.Data.SqlClient;
 
-    public class RemoveVillain
+    public class StartUp
     {
         public static void Main()
         {

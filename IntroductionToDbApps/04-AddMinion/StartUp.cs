@@ -3,12 +3,12 @@
     using System;
     using System.Data.SqlClient;
 
-    public class AddMinion
+    public class StartUp
     {
+        public const string connectionString = "Server=.;Database=MinionsDB;Integrated Security = true;";
+
         public static void Main()
         {
-            string connectionString = "Server=.;Database=MinionsDB;Integrated Security = true;";
-
             string[] minionData = Console.ReadLine().Split();
 
             string minionName = minionData[1];

@@ -4,7 +4,7 @@
     using System.Data.SqlClient;
     using System.IO;
 
-    public class InitialSetup
+    public class StartUp
     {
         public const string connectionStringMaster = "Server=.;Database=master;Integrated Security = true;";
 

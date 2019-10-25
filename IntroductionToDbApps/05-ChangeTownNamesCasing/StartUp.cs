@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Data.SqlClient;
 
-    public class ChangeTownNamesCasing
+    public class StartUp
     {
         public static void Main()
         {
