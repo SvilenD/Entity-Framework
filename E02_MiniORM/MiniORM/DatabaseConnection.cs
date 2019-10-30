@@ -1,10 +1,10 @@
 ﻿namespace MiniORM
 {
 	using System;
+	using System.Linq;
 	using System.Collections.Generic;
 	using System.ComponentModel.DataAnnotations;
 	using System.Data.SqlClient;
-	using System.Linq;
 
 	/// <summary>
 	/// Used for accessing a database, inserting/updating/deleting entities
@@ -211,7 +211,8 @@
 		public void DeleteEntities<T>(IEnumerable<T> entitiesToDelete, string tableName, string[] columns)
 			where T : class
 		{
-			var primaryKeyProperties = typeof(T).GetProperties()
+			var primaryKeyProperties = typeof(T)
+                .GetProperties()
 				.Where(pi => pi.HasAttribute<KeyAttribute>())
 				.ToArray();
 
