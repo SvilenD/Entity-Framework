@@ -10,13 +10,11 @@
     {
         public static void Main()
         {
-            var db = new SoftUniContext();
-
-            var result = RemoveTown(db);
-
-            db.Dispose();
-
-            Console.WriteLine(result);
+            using (var db = new SoftUniContext())
+            {
+                var result = RemoveTown(db);
+                Console.WriteLine(result);
+            }
         }
 
         //Task3
