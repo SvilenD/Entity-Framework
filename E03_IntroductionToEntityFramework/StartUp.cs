@@ -12,7 +12,7 @@
         {
             var db = new SoftUniContext();
 
-            var result = DeleteProjectById(db);
+            var result = RemoveTown(db);
 
             db.Dispose();
 
@@ -371,6 +371,36 @@
             }
 
             return result.ToString().TrimEnd();
+        }
+
+        //Task15
+        public static string RemoveTown(SoftUniContext context)
+        {
+            var townToRemove = context
+                .Towns
+                .FirstOrDefault(t => t.Name == "Seattle");
+
+            var addressesToRemove = context
+                .Addresses
+                .Where(a => a.Town == townToRemove);
+
+            var employeesAddressToRemove = context
+                .Employees
+                .Where(e => addressesToRemove.Contains(e.Address));
+
+            foreach (var employee in employeesAddressToRemove)
+            {
+                employee.AddressId = null;
+            }
+
+            int count = addressesToRemove.Count();
+
+            context.Addresses.RemoveRange(addressesToRemove);
+            context.Towns.Remove(townToRemove);
+            context.SaveChanges();
+
+
+            return $"{count} addresses in Seattle were deleted";
         }
     }
 }
