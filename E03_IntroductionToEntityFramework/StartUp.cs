@@ -12,7 +12,7 @@
         {
             var db = new SoftUniContext();
 
-            var result = GetDepartmentsWithMoreThan5Employees(db);
+            var result = DeleteProjectById(db);
 
             db.Dispose();
 
@@ -249,6 +249,125 @@
                 {
                     result.AppendLine($"{emp.Name} - {emp.JobTitle}");
                 }
+            }
+
+            return result.ToString().TrimEnd();
+        }
+
+        //Task11
+        public static string GetLatestProjects(SoftUniContext context)
+        {
+            StringBuilder result = new StringBuilder();
+
+            var projects = context
+                .Projects
+                .Select(p => new
+                {
+                    p.Name,
+                    p.Description,
+                    p.StartDate
+                })
+                .OrderByDescending(p => p.StartDate)
+                .Take(10)
+                .OrderBy(p => p.Name);
+
+            foreach (var project in projects)
+            {
+                result.AppendLine(project.Name);
+                result.AppendLine(project.Description);
+                result.AppendLine(project.StartDate.ToString("M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture));
+            }
+
+            return result.ToString().TrimEnd();
+        }
+
+        //Task12
+        public static string IncreaseSalaries(SoftUniContext context)
+        {
+            var employees = context
+                .Employees
+                .Where(e => e.Department.Name == "Engineering" ||
+                e.Department.Name == "Tool Design" ||
+                e.Department.Name == "Marketing" ||
+                e.Department.Name == "Information Services");
+
+            foreach (var employee in employees)
+            {
+                employee.Salary *= 1.12m;
+            }
+
+            context.SaveChanges();
+
+            var employeesResult = employees.
+                Select(e => new
+                {
+                    e.FirstName,
+                    e.LastName,
+                    e.Salary
+                })
+                .OrderBy(e => e.FirstName)
+                .ThenBy(e => e.LastName)
+                .ToList();
+
+            StringBuilder result = new StringBuilder();
+
+            foreach (var empl in employeesResult)
+            {
+                result.AppendLine($"{empl.FirstName} {empl.LastName} (${empl.Salary:F2})");
+            }
+
+            return result.ToString().TrimEnd();
+        }
+
+        //Task13
+        public static string GetEmployeesByFirstNameStartingWithSa(SoftUniContext context)
+        {
+            var employees = context
+                .Employees
+                .Where(e => e.FirstName.StartsWith("Sa"))
+                .Select(e => new
+                {
+                    e.FirstName,
+                    e.LastName,
+                    e.JobTitle,
+                    e.Salary
+                })
+                .OrderBy(e => e.FirstName)
+                .ThenBy(e => e.LastName);
+
+            StringBuilder result = new StringBuilder();
+
+            foreach (var emp in employees)
+            {
+                result.AppendLine($"{emp.FirstName} {emp.LastName} - {emp.JobTitle} - (${emp.Salary:F2})");
+            }
+            return result.ToString().TrimEnd();
+        }
+
+        //Task14
+        public static string DeleteProjectById(SoftUniContext context)
+        {
+            var projectToDelete = context.Projects.Find(2);
+
+            var epToDelete = context.EmployeesProjects
+                .Where(ep => ep.ProjectId == projectToDelete.ProjectId);
+
+            context.EmployeesProjects.RemoveRange(epToDelete);
+
+            context.Projects.Remove(projectToDelete);
+
+            context.SaveChanges();
+
+            var tenProjects = context
+                .Projects
+                .Select(e => e.Name)
+                .Take(10);
+
+            StringBuilder result = new StringBuilder();
+
+            foreach (var project in tenProjects)
+            {
+                result.AppendLine(project);
             }
 
             return result.ToString().TrimEnd();
