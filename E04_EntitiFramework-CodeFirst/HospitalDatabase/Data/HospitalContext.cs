@@ -30,7 +30,7 @@
             modelBuilder
                 .Entity<Diagnose>()
                 .HasOne(d => d.Patient)
-                .WithMany(d => d.Diagnoses)
+                .WithMany(p => p.Diagnoses)
                 .HasForeignKey(d => d.PatientId);
 
             modelBuilder
@@ -44,19 +44,19 @@
             modelBuilder
                 .Entity<PatientMedicament>()
                 .HasOne(pm => pm.Patient)
-                .WithMany(pm => pm.Prescriptions)
+                .WithMany(p => p.Prescriptions)
                 .HasForeignKey(pm => pm.PatientId);
 
             modelBuilder
                 .Entity<PatientMedicament>()
                 .HasOne(pm => pm.Medicament)
-                .WithMany(pm => pm.Prescriptions)
+                .WithMany(m => m.Prescriptions)
                 .HasForeignKey(pm => pm.MedicamentId);
 
             modelBuilder
                 .Entity<Visitation>()
-                .HasOne(p => p.Patient)
-                .WithMany(v => v.Visitations)
+                .HasOne(v => v.Patient)
+                .WithMany(p => p.Visitations)
                 .HasForeignKey(v => v.PatientId);
 
             //Task2
@@ -64,7 +64,7 @@
                 .Entity<Visitation>()
                 .HasOne(d => d.Doctor)
                 .WithMany(v => v.Visitations)
-                .HasForeignKey(v => v.DoctorId);
+                .HasForeignKey(d => d.DoctorId);
         }
     }
 }
