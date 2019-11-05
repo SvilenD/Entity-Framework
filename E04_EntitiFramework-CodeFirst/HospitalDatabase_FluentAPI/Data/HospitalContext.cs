@@ -1,11 +1,20 @@
 ﻿namespace P01_HospitalDatabase.Data
 {
-    using System;
     using Microsoft.EntityFrameworkCore;
     using P01_HospitalDatabase.Data.Models;
 
     public class HospitalContext : DbContext
     {
+        public DbSet<Diagnose> Diagnoses { get; set; }
+
+        public DbSet<Doctor> Doctors { get; set; }
+
+        public DbSet<Patient> Patients { get; set; }
+
+        public DbSet<PatientMedicament> PatientsMedicaments { get; set; }
+
+        public DbSet<Visitation> Visitations { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -16,10 +25,15 @@
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             PatientEntityConfig(modelBuilder);
+
             VisitationEntityConfig(modelBuilder);
+
             DiagnoseEntityConfig(modelBuilder);
+
             MedicamentEntityConfig(modelBuilder);
+
             PatientMedicamentEntityConfig(modelBuilder);
+
             DoctorEntityConfig(modelBuilder);
         }
 
