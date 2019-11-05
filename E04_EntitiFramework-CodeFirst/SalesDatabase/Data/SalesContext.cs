@@ -18,19 +18,19 @@
             modelBuilder
                 .Entity<Sale>()
                 .HasOne(s => s.Customer)
-                .WithMany(s => s.Sales)
+                .WithMany(c => c.Sales)
                 .HasForeignKey(s => s.CustomerId);
 
             modelBuilder
                 .Entity<Sale>()
                 .HasOne(s => s.Product)
-                .WithMany(s => s.Sales)
+                .WithMany(p => p.Sales)
                 .HasForeignKey(s => s.ProductId);
 
             modelBuilder
                 .Entity<Sale>()
                 .HasOne(s => s.Store)
-                .WithMany(s => s.Sales)
+                .WithMany(st => st.Sales)
                 .HasForeignKey(s => s.SaleId);
 
             modelBuilder
