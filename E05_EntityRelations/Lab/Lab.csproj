@@ -6,19 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\Migrations\20191105151352_minor.cs" />
-    <Compile Remove="Data\Migrations\20191105151352_minor.Designer.cs" />
-    <Compile Remove="Data\Migrations\20191106085334_Addresses.cs" />
-    <Compile Remove="Data\Migrations\20191106085334_Addresses.Designer.cs" />
-    <Compile Remove="Data\Migrations\20191106090723_AddressesFK.cs" />
-    <Compile Remove="Data\Migrations\20191106090723_AddressesFK.Designer.cs" />
-    <Compile Remove="Data\Migrations\20191106090830_AddressesFK.cs" />
-    <Compile Remove="Data\Migrations\20191106090830_AddressesFK.Designer.cs" />
-    <Compile Remove="Data\Migrations\20191106130813_final.cs" />
-    <Compile Remove="Data\Migrations\20191106130813_final.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.0">
       <PrivateAssets>all</PrivateAssets>

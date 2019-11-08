@@ -22,7 +22,7 @@
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(DataSettings.ConnectionString);
+                optionsBuilder.UseSqlServer(ConnectionSettings.ConnectionString);
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

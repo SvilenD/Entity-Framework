@@ -14,6 +14,7 @@
             using (var db = new CarDbContext())
             {
                 db.Database.Migrate();
+
                 var purchases = db.Purchases.
                             Select(p => new PurchaseResultModel
                             {
