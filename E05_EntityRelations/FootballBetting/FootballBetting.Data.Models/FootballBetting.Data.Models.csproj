@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>P03_FootballBetting.Data.Models</RootNamespace>
+  </PropertyGroup>
+
+</Project>

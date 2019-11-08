@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>P03_FootballBetting.Data</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20191107161955_re.cs" />
+    <Compile Remove="Migrations\20191107161955_re.Designer.cs" />
+    <Compile Remove="Migrations\20191107162121_re.cs" />
+    <Compile Remove="Migrations\20191107162121_re.Designer.cs" />
+    <Compile Remove="Migrations\20191107162241_re.cs" />
+    <Compile Remove="Migrations\20191107162241_re.Designer.cs" />
+    <Compile Remove="Migrations\20191107162352_re.cs" />
+    <Compile Remove="Migrations\20191107162352_re.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FootballBetting.Data.Models\FootballBetting.Data.Models.csproj" />
+  </ItemGroup>
+
+</Project>
