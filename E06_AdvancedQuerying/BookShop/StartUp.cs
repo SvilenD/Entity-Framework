@@ -10,6 +10,11 @@
     {
         public static void Main()
         {
+            using (var db = new BookShopContext())
+            {
+                DbInitializer.ResetDatabase(db);
+            }
+
             var command = Console.ReadLine();
 
             using (var db = new BookShopContext())

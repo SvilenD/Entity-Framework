@@ -9,4 +9,13 @@
     <ProjectReference Include="..\BookShop.Models\BookShop.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="BooksData.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Generators\BooksData.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
