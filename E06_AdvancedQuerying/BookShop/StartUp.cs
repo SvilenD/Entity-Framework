@@ -10,10 +10,10 @@
     {
         public static void Main()
         {
-            using (var db = new BookShopContext())
-            {
-                DbInitializer.ResetDatabase(db);
-            }
+            //using (var db = new BookShopContext())
+            //{
+            //    DbInitializer.ResetDatabase(db);
+            //}
 
             var command = Console.ReadLine();
 
@@ -22,7 +22,6 @@
                 Console.WriteLine(GetBooksByAgeRestriction(db, command));
             }
         }
-
 
         //Task 1
         public static string GetBooksByAgeRestriction(BookShopContext context, string command)

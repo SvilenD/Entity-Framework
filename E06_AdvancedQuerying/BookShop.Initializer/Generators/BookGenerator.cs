@@ -22,13 +22,13 @@
 
         internal static Book[] CreateBooks()
         {
-            var reader = new StreamReader("../../../../BookShop.Initializer/BooksData.txt");
-
             var booksInput = new List<string>();
-
-            while(reader.EndOfStream)
+            using (var reader = new StreamReader("../../../../BookShop.Initializer/BooksData.txt"))
             {
-                booksInput.Add(reader.ReadLine());
+                while (reader.EndOfStream == false)
+                {
+                    booksInput.Add(reader.ReadLine());
+                }
             }
 
             var booksCount = booksInput.Count;
@@ -45,7 +45,7 @@
 
                 var edition = int.Parse(currentBook[0]);
 
-                var releaseDate = DateTime.ParseExact(currentBook[1],  "d/M/yyyy",  CultureInfo.InvariantCulture);
+                var releaseDate = DateTime.ParseExact(currentBook[1], "d/M/yyyy", CultureInfo.InvariantCulture);
 
                 var copies = int.Parse(currentBook[2]);
 
@@ -53,7 +53,7 @@
 
                 var ageRestriction = int.Parse(currentBook[4]);
 
-                var title = String.Join(" ",  currentBook,  5,  currentBook.Length - 5);
+                var title = String.Join(" ", currentBook, 5, currentBook.Length - 5);
 
                 Category category = categories[i / 10];
 
@@ -61,19 +61,19 @@
 
                 Book book = new Book()
                 {
-                    Title = title, 
-                    ReleaseDate = releaseDate, 
+                    Title = title,
+                    ReleaseDate = releaseDate,
                     Description = bookDescription,
-                    EditionType = (EditionType)edition, 
-                    Price = price, 
-                    Copies = copies, 
-                    AgeRestriction = (AgeRestriction)ageRestriction, 
-                    Author = author 
+                    EditionType = (EditionType)edition,
+                    Price = price,
+                    Copies = copies,
+                    AgeRestriction = (AgeRestriction)ageRestriction,
+                    Author = author
                 };
 
                 BookCategory bookCategory = new BookCategory()
                 {
-                    Category = category, 
+                    Category = category,
                     Book = book
                 };
 

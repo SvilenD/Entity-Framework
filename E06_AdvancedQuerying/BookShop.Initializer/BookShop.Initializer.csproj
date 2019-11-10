@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <None Update="BooksData.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Generators\BooksData.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
