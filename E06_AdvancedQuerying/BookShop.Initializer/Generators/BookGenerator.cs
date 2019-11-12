@@ -1,9 +1,9 @@
 ﻿namespace BookShop.Initializer.Generators
 {
-    using BookShop.Models;
     using System;
     using System.Globalization;
 
+    using BookShop.Models;
     using BookShop.Models.Enums;
 
     internal class BookGenerator

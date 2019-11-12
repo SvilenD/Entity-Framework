@@ -6,10 +6,14 @@
 
     public class BookShopContext : DbContext
     {
-		public BookShopContext() { }
+		public BookShopContext() 
+        { 
+        }
 
 		public BookShopContext(DbContextOptions options)
-			:base(options) { }
+			:base(options) 
+        { 
+        }
 		
         public DbSet<Book> Books { get; set; }
 

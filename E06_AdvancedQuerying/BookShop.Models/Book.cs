@@ -3,8 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
     using BookShop.Models.Enums;
     using static ValidationSettings.Book;
+
     public class Book
     {
         public int BookId { get; set; }
