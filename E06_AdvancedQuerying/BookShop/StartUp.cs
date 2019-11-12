@@ -236,13 +236,14 @@
                 .Select(c => new
                 {
                     c.Name,
-                    Books = c.CategoryBooks.Select(b => new
+                    Books = c.CategoryBooks
+                    .OrderByDescending(c => c.Book.ReleaseDate)
+                    .Take(3)
+                    .Select(b => new
                     {
                         b.Book.Title,
                         ReleaseDate = b.Book.ReleaseDate.Value
                     })
-                    .OrderByDescending(b => b.ReleaseDate)
-                    .Take(3)
                 })
                 .OrderBy(c => c.Name)
                 .ToArray();
