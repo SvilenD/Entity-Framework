@@ -12,7 +12,7 @@
         public string LastName { get; set; }
 
         [JsonProperty(PropertyName = "soldProducts")]
-        public List<SoldProductsDto> SoldProducts { get; set; }
-            = new List<SoldProductsDto>();
+        public List<ProductsSoldDto> SoldProducts { get; set; }
+            = new List<ProductsSoldDto>();
     }
 }

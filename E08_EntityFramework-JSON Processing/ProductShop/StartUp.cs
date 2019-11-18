@@ -22,7 +22,8 @@
 
         public static void Main(string[] args)
         {
-            Mapper.Initialize(cfg => new ProductShopProfile());
+            var mapperConfig = new ProductShopProfile();
+            Mapper.Initialize(c => c.AddProfile(mapperConfig));
 
             using (var context = new ProductShopContext())
             {
@@ -30,7 +31,7 @@
 
                 //ImportData(context);
 
-                Console.WriteLine(GetProductsInRange(context));
+                Console.WriteLine(GetSoldProducts(context));
             }
         }
 
@@ -94,11 +95,11 @@
         //Select only the product name, price and the full name of the seller. Export the result to JSON.
         public static string GetProductsInRange(ProductShopContext context)
         {
-                var products = context.Products
-                .Where(p => p.Price >= 500 && p.Price <= 1000)
-                .OrderBy(x => x.Price)
-                .ProjectTo<ProductsInRangeDto>()
-                .ToList();
+            var products = context.Products
+            .Where(p => p.Price >= 500 && p.Price <= 1000)
+            .OrderBy(x => x.Price)
+            .ProjectTo<ProductsInRangeDto>()
+            .ToList();
 
             var productsJson = JsonConvert.SerializeObject(products, Formatting.Indented);
 
@@ -118,29 +119,16 @@
                 .Where(u => u.ProductsSold.Any(p => p.Buyer != null))
                 .OrderBy(u => u.LastName)
                 .ThenBy(u => u.FirstName)
-                .Select(u => new UserWithProductsDto()
-                {
-                    FirstName = u.FirstName,
-                    LastName = u.LastName,
-                    SoldProducts = u.ProductsSold
-                        .Where(b => b.Buyer != null)
-                        .Select(p => new SoldProductsDto
-                        {
-                            Name = p.Name,
-                            Price = p.Price,
-                            BuyerFirstName = p.Buyer.FirstName,
-                            BuyerLastName = p.Buyer.LastName
-                        }).ToList()
-                }).ToList();
+                .ProjectTo<UserWithProductsDto>()
+                .ToList();
 
             var usersProductsJson = JsonConvert.SerializeObject(users, Formatting.Indented);
 
             return usersProductsJson;
         }
 
-        //Task 7 - Get all categories. Order them in descending order by the category’s products count. 
-        //For each category select its name, the number of products, the average price of those products 
-        //(rounded to second digit after the decimal separator) and the total revenue 
+        //Task 7 - Get all categories. Order them in descending order by the category’s products count. For each category select its name, 
+        //the number of products, the average price of those products (rounded to second digit after the decimal separator) and the total revenue 
         //(total price sum and rounded to second digit after the decimal separator) of those products (regardless if they have a buyer or not).
         public static string GetCategoriesByProductsCount(ProductShopContext context)
         {
@@ -157,6 +145,13 @@
             var categoriesJson = JsonConvert.SerializeObject(categories, Formatting.Indented);
 
             return categoriesJson;
+        }
+
+        //Task 8 - Get all users who have at least 1 sold product with a buyer. Order them in descending order by the number of sold products 
+        //with a buyer. Select only their first and last name, age and for each product - name and price. Ignore all null values.
+        public static string GetUsersWithProducts(ProductShopContext context)
+        {
+            return "";
         }
     }
 }
