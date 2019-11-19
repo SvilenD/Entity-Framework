@@ -1,12 +1,11 @@
 ﻿namespace ProductShop.ResultModels
 {
     using Newtonsoft.Json;
-    using System;
 
     public class CategoryProductsDto
     {
         [JsonProperty(PropertyName = "category")]
-        public string CategoryName { get; set; }
+        public string Name { get; set; }
 
         [JsonProperty(PropertyName = "productsCount")]
         public int ProductsCount { get; set; }

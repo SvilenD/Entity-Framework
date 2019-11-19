@@ -15,7 +15,7 @@
 
     public class StartUp
     {
-        private const string usersData = "../../../Datasets/users.json"; 
+        private const string usersData = "../../../Datasets/users.json";
         private const string productsData = "../../../Datasets/products.json";
         private const string categoriesData = "../../../Datasets/categories.json";
         private const string categoriesProductsData = "../../../Datasets/categories-products.json";
@@ -31,7 +31,7 @@
 
                 //ImportData(context);
 
-                Console.WriteLine(GetSoldProducts(context));
+                Console.WriteLine(GetUsersWithProducts(context));
             }
         }
 
@@ -119,7 +119,7 @@
                 .Where(u => u.ProductsSold.Any(p => p.Buyer != null))
                 .OrderBy(u => u.LastName)
                 .ThenBy(u => u.FirstName)
-                .ProjectTo<UserWithProductsDto>()
+                .ProjectTo<UserProductsDto>()
                 .ToList();
 
             var usersProductsJson = JsonConvert.SerializeObject(users, Formatting.Indented);
@@ -134,13 +134,8 @@
         {
             var categories = context.Categories
                 .OrderByDescending(c => c.CategoryProducts.Count)
-                .Select(c => new CategoryProductsDto()
-                {
-                    CategoryName = c.Name,
-                    ProductsCount = c.CategoryProducts.Count,
-                    AveragePrice = $"{c.CategoryProducts.Average(p => p.Product.Price):F2}",
-                    TotalRevenue = $"{c.CategoryProducts.Sum(p => p.Product.Price):F2}"
-                }).ToList();
+                .ProjectTo<CategoryProductsDto>()
+                .ToList();
 
             var categoriesJson = JsonConvert.SerializeObject(categories, Formatting.Indented);
 
@@ -151,7 +146,29 @@
         //with a buyer. Select only their first and last name, age and for each product - name and price. Ignore all null values.
         public static string GetUsersWithProducts(ProductShopContext context)
         {
-            return "";
+            var usersProducts = context.Users
+                .Where(u => u.ProductsSold.Any(p => p.Buyer != null))
+                .ProjectTo<UserWithProductsDto>()
+                .OrderByDescending(u => u.SoldProducts.Count)
+                .ToArray();
+
+            var users = new UserDto()
+            {
+                UsersCount = usersProducts.Length,
+                Users = usersProducts
+            };
+
+            var usersProductsJson = JsonConvert.SerializeObject(users, Formatting.Indented, new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            });
+
+            //using (var writer = new StreamWriter("../../../OutputResults/users-and-products.json"))
+            //{
+            //    writer.Write(usersProductsJson);
+            //}
+
+            return usersProductsJson;
         }
     }
 }
