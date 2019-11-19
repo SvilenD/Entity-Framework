@@ -8,7 +8,7 @@
     using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
     using Newtonsoft.Json;
-
+    using Newtonsoft.Json.Serialization;
     using ProductShop.Data;
     using ProductShop.Models;
     using ProductShop.ResultModels;
@@ -158,9 +158,15 @@
                 Users = usersProducts
             };
 
+            var defaultResolver = new DefaultContractResolver()
+            {
+                NamingStrategy = new CamelCaseNamingStrategy()
+            };
+
             var usersProductsJson = JsonConvert.SerializeObject(users, Formatting.Indented, new JsonSerializerSettings
             {
-                NullValueHandling = NullValueHandling.Ignore
+                NullValueHandling = NullValueHandling.Ignore,
+                ContractResolver = defaultResolver
             });
 
             //using (var writer = new StreamWriter("../../../OutputResults/users-and-products.json"))
