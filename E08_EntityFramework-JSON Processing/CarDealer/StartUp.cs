@@ -30,11 +30,11 @@
 
             using (var context = new CarDealerContext())
             {
-                context.Database.Migrate();
+                //context.Database.Migrate();
 
-                //var data = File.ReadAllText(salesData);
+                var data = File.ReadAllText(carsData);
 
-                Console.WriteLine(GetSalesWithAppliedDiscount(context));
+                Console.WriteLine(ImportCars(context, data));
             }
         }
 
@@ -129,7 +129,7 @@
 
                 cars.Add(carToAdd);
 
-                foreach (var partsCarId in carModel.PartsId)
+                foreach (var partsCarId in carModel.PartsId.Distinct())
                 {
                     if (validPartIds.Contains(partsCarId))
                     {
@@ -139,12 +139,8 @@
                             PartId = partsCarId
                         };
 
-                        if (carToAdd.PartCars
-                            .FirstOrDefault(p => p.PartId == partsCarId && p.CarId == carToAdd.Id) == null)
-                        {
-                            carToAdd.PartCars.Add(carPartToAdd);
-                            partsCars.Add(carPartToAdd);
-                        }
+                        carToAdd.PartCars.Add(carPartToAdd);
+                        partsCars.Add(carPartToAdd);
                     }
                 }
             }
