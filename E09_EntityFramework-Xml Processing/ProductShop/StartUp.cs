@@ -1,19 +1,19 @@
 ﻿namespace ProductShop
 {
     using System;
-    using System.Linq;
     using System.IO;
+    using System.Xml;
+    using System.Text;
+    using System.Linq;
     using System.Collections.Generic;
     using System.Xml.Serialization;
     using AutoMapper;
+    using AutoMapper.QueryableExtensions;
 
     using ProductShop.Data;
     using ProductShop.Models;
     using ProductShop.Dtos.Import;
     using ProductShop.Dtos.Export;
-    using System.Xml;
-    using System.Text;
-    using AutoMapper.QueryableExtensions;
 
     public class StartUp
     {
@@ -223,10 +223,8 @@
         //- name and price sorted by price (descending). Take top 10 records.
         public static string GetUsersWithProducts(ProductShopContext context)
         {
-            var usersProducts = context.Users
+            var users = context.Users
                 .Where(u => u.ProductsSold.Any())
-                .OrderByDescending(u => u.ProductsSold.Count)
-                .Take(10)
                 .Select(u => new UserAgeProductsExportDto
                 {
                     FirstName = u.FirstName,
@@ -235,36 +233,36 @@
                     SoldProducts = new SoldProductsCountExportDto
                     {
                         Count = u.ProductsSold.Count,
-                        Products = new SoldProductsExportDto
+                        Products = u.ProductsSold.Select(p => new ProductExportDto
                         {
-                            Products = u.ProductsSold
-                            .Select(p => new ProductExportDto
-                            {
-                                Name = p.Name,
-                                Price = p.Price
-                            })
-                            .OrderByDescending(p => p.Price)
-                            .ToArray()
-                        }
+                            Name = p.Name,
+                            Price = p.Price
+                        })
+                        .OrderByDescending(x => x.Price)
+                        .ToArray()
                     }
                 })
+                .OrderByDescending(s => s.SoldProducts.Count)
+                .Take(10)
                 .ToArray();
 
-            var users = new UsersExportDto
+            var usersProducts = new UsersExportDto
             {
-                Count = context.Users.Count(p => p.ProductsSold.Any()),
-                Users = usersProducts
+                Count = context.Users.Where(s => s.ProductsSold.Any(b => b.Buyer != null)).Count(),
+                Users = users
             };
 
-            var attr = new XmlRootAttribute("Users");
-            var serializer = new XmlSerializer(users.GetType(), attr);
-            var namespaces = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
+            var xmlSerializer = new XmlSerializer(usersProducts.GetType(), new XmlRootAttribute("Users"));
 
             var result = new StringBuilder();
-            serializer.Serialize(new StringWriter(result), users, namespaces);
+
+            var namespaces = new XmlSerializerNamespaces(new[] { new XmlQualifiedName("", "") });
+
+            xmlSerializer.Serialize(new StringWriter(result), usersProducts, namespaces);
             //serializer.Serialize(new StreamWriter("../../../usersProducts.xml"), users, namespaces);
 
             return result.ToString().TrimEnd();
         }
+
     }
 }

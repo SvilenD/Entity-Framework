@@ -6,8 +6,7 @@
     {
         [XmlElement("count")]
         public int Count { get; set; }
-
-        [XmlElement("products")]
-        public SoldProductsExportDto Products { get; set; }
+        [XmlArray("products")]
+        public ProductExportDto[] Products { get; set; }
     }
 }

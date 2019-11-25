@@ -6,8 +6,7 @@
     {
         [XmlElement("count")]
         public int Count { get; set; }
-
-        [XmlElement("users")]
+        [XmlArray("users")]
         public UserAgeProductsExportDto[] Users { get; set; }
     }
 }
