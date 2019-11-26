@@ -22,6 +22,12 @@
 
             this.CreateMap<Car, CarBmwExportDto>();
 
+            this.CreateMap<Part, PartExportDto>();
+            this.CreateMap<Car, CarWithPartsExportDto>()
+                .ForMember(dest => dest.Parts, opt => opt.MapFrom(src => src.PartCars
+                        .Select(pc => pc.Part)
+                        .OrderByDescending(p=>p.Price)));
+
             this.CreateMap<Supplier, SuppliersExportDto>()
                 .ForMember(dest => dest.PartsCount, opt => opt.MapFrom(src => src.Parts.Count));
 

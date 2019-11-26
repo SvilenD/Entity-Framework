@@ -309,22 +309,20 @@
                 .OrderByDescending(c => c.TravelledDistance)
                 .ThenBy(c => c.Model)
                 .Take(5)
-                .Select(c => new CarWithPartsExportDto
-                {
-                    Make = c.Make,
-                    Model = c.Model,
-                    TravelledDistance = c.TravelledDistance,
-                    Parts = new PartsArrayDto
-                    {
-                        Parts = c.PartCars.Select(p => new PartExportDto
-                        {
-                            Name = p.Part.Name,
-                            Price = p.Part.Price
-                        })
-                            .OrderByDescending(p => p.Price)
-                            .ToArray()
-                    }
-                })
+                .ProjectTo<CarWithPartsExportDto>()
+                                                    //.Select(c => new CarWithPartsExportDto
+                                                    //{
+                                                    //    Make = c.Make,
+                                                    //    Model = c.Model,
+                                                    //    TravelledDistance = c.TravelledDistance,
+                                                    //    Parts = c.PartCars.Select(p => new PartExportDto
+                                                    //        {
+                                                    //            Name = p.Part.Name,
+                                                    //            Price = p.Part.Price
+                                                    //        })
+                                                    //        .OrderByDescending(p => p.Price)
+                                                    //        .ToArray()
+                                                    //})
                 .ToArray();
 
             var attr = new XmlRootAttribute("cars");
@@ -375,7 +373,7 @@
                       PriceWithDiscount = s.Car.PartCars.Sum(pc => pc.Part.Price)
                           - s.Car.PartCars.Sum(pc => pc.Part.Price) * s.Discount / 100m
                   })
-           .ToArray();
+                  .ToArray();
 
             var rootAttr = new XmlRootAttribute("sales");
             var serializer = new XmlSerializer(sales.GetType(), rootAttr);

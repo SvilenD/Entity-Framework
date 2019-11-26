@@ -14,7 +14,7 @@
         [XmlAttribute("travelled-distance")]
         public long TravelledDistance { get; set; }
 
-        [XmlElement("parts")]
-        public PartsArrayDto Parts { get; set; }
+        [XmlArray("parts")]
+        public PartExportDto[] Parts { get; set; }
     }
 }
