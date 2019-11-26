@@ -33,10 +33,10 @@
 
             using (var context = new CarDealerContext())
             {
-                context.Database.Migrate();
+                //context.Database.Migrate();
 
-                //var data = File.ReadAllText(salesInputXmlData);
-                GetSalesWithAppliedDiscount(context);
+                //var data = File.ReadAllText(carsInputXmlData);
+                Console.WriteLine(GetSalesWithAppliedDiscount(context));
             }
         }
 
@@ -85,103 +85,103 @@
         }
 
         //Task 11 
-        //public static string ImportCars(CarDealerContext context, string inputXml)
-        //{
-        //    var attr = new XmlRootAttribute("Cars");
-        //    var serializer = new XmlSerializer(typeof(CarImportDto[]), attr);
-
-        //    var carsDto = (CarImportDto[])serializer.Deserialize(new StringReader(inputXml));
-
-        //    var partIds = context.Parts
-        //        .Select(p => p.Id)
-        //        .ToArray();
-
-        //    var carParts = new HashSet<PartCar>();
-        //    var cars = new HashSet<Car>();
-
-        //    foreach (var dto in carsDto)
-        //    {
-        //        var carToAdd = Mapper.Map<Car>(dto);
-
-        //        foreach (var pc in dto.Parts)
-        //        {
-        //            if (partIds.Contains(pc.Id))
-        //            {
-        //                var carPartToAdd = new PartCar
-        //                {
-        //                    Car = carToAdd,
-        //                    PartId = pc.Id
-        //                };
-
-        //                if (carToAdd.PartCars.FirstOrDefault(p => p.PartId == pc.Id) == null)
-        //                {
-        //                    carToAdd.PartCars.Add(carPartToAdd);
-        //                    carParts.Add(carPartToAdd);
-        //                }
-        //            }
-        //        }
-
-        //        cars.Add(carToAdd);
-        //    }
-
-        //    context.Cars.AddRange(cars);
-        //    context.PartCars.AddRange(carParts);
-
-        //    return String.Format(outputResult, cars.Count);
-        //}
-
         public static string ImportCars(CarDealerContext context, string inputXml)
         {
-            var carsParsed = XDocument.Parse(inputXml)
-                .Root
-                .Elements()
-                .ToList();
+            var attr = new XmlRootAttribute("Cars");
+            var serializer = new XmlSerializer(typeof(CarImportDto[]), attr);
 
-            var cars = new List<Car>();
+            var carsDto = (CarImportDto[])serializer.Deserialize(new StringReader(inputXml));
 
-            var partsID = context.Parts
-                .Select(x => x.Id)
+            var partIds = context.Parts
+                .Select(p => p.Id)
                 .ToArray();
 
-            foreach (var car in carsParsed)
+            var carParts = new HashSet<PartCar>();
+            var cars = new HashSet<Car>();
+
+            foreach (var dto in carsDto)
             {
-                var currentCar = new Car()
-                {
-                    Make = car.Element("make").Value,
-                    Model = car.Element("model").Value,
-                    TravelledDistance = long.Parse(car.Element("TraveledDistance").Value)
-                };
+                var carToAdd = Mapper.Map<Car>(dto);
+                cars.Add(carToAdd);
 
-                var partIds = new HashSet<int>();
+                var carPartsIds = dto.Parts
+                    .Select(p => p.Id)
+                    .Distinct();
 
-                foreach (var partid in car.Element("parts").Elements())
+                foreach (var carPartId in carPartsIds)
                 {
-                    var pid = int.Parse(partid.Attribute("id").Value);
-                    partIds.Add(pid);
-                }
-
-                foreach (var pid in partIds)
-                {
-                    if (partsID.Contains(pid))
+                    if (partIds.Contains(carPartId))
                     {
-                        var currentPair = new PartCar()
+                        var part = new PartCar
                         {
-                            Car = currentCar,
-                            PartId = pid
+                            CarId = carToAdd.Id,
+                            PartId = carPartId
                         };
 
-                        currentCar.PartCars.Add(currentPair);
+                        carParts.Add(part);
                     }
                 }
-                cars.Add(currentCar);
             }
 
             context.Cars.AddRange(cars);
-
+            context.PartCars.AddRange(carParts);
             context.SaveChanges();
 
-            return $"Successfully imported {cars.Count}";
+            return String.Format(outputResult, cars.Count);
         }
+
+        //public static string ImportCars(CarDealerContext context, string inputXml)
+        //{
+        //    var carsParsed = XDocument.Parse(inputXml)
+        //        .Root
+        //        .Elements()
+        //        .ToList();
+
+        //    var cars = new List<Car>();
+
+        //    var partsID = context.Parts
+        //        .Select(x => x.Id)
+        //        .ToArray();
+
+        //    foreach (var car in carsParsed)
+        //    {
+        //        var currentCar = new Car()
+        //        {
+        //            Make = car.Element("make").Value,
+        //            Model = car.Element("model").Value,
+        //            TravelledDistance = long.Parse(car.Element("TraveledDistance").Value)
+        //        };
+
+        //        var partIds = new HashSet<int>();
+
+        //        foreach (var partid in car.Element("parts").Elements())
+        //        {
+        //            var pid = int.Parse(partid.Attribute("id").Value);
+        //            partIds.Add(pid);
+        //        }
+
+        //        foreach (var pid in partIds)
+        //        {
+        //            if (partsID.Contains(pid))
+        //            {
+        //                var currentPair = new PartCar()
+        //                {
+        //                    Car = currentCar,
+        //                    PartId = pid
+        //                };
+
+        //                currentCar.PartCars.Add(currentPair);
+        //            }
+        //        }
+        //        cars.Add(currentCar);
+        //    }
+
+        //    context.Cars.AddRange(cars);
+
+        //    context.SaveChanges();
+
+        //    return $"Successfully imported {cars.Count}";
+        //}
 
         //Task 12
         public static string ImportCustomers(CarDealerContext context, string inputXml)
