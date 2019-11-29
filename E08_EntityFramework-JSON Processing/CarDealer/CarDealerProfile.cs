@@ -11,7 +11,7 @@
     {
         public CarDealerProfile()
         {
-            this.CreateMap<CarWithPartsId, Car>();
+            this.CreateMap<CarWithPartsIdDto, Car>();
 
             this.CreateMap<Customer, CustomerDto>()
                 .ForMember(dest => dest.BirthDate, opt => opt.MapFrom(src => src.BirthDate

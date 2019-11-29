@@ -1,6 +1,6 @@
 ﻿namespace CarDealer.DTO
 {
-    public class CarWithPartsId
+    public class CarWithPartsIdDto
     {
         public string Make { get; set; }
 

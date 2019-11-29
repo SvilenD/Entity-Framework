@@ -32,9 +32,9 @@
             {
                 //context.Database.Migrate();
 
-                var data = File.ReadAllText(carsData);
+                //var data = File.ReadAllText(carsData);
 
-                Console.WriteLine(ImportCars(context, data));
+                Console.WriteLine(GetSalesWithAppliedDiscount(context));
             }
         }
 
@@ -67,58 +67,14 @@
             return String.Format(importResult, parts.Count);
         }
 
-        //Task 11 - 50/100 WTF?!
-        //public static string ImportCars(CarDealerContext context, string inputJson)
-        //{
-        //    var carsDto = JsonConvert.DeserializeObject<CarDto[]>(inputJson, new JsonSerializerSettings()
-        //    {
-        //        ContractResolver = new DefaultContractResolver()
-        //        {
-        //            NamingStrategy = new CamelCaseNamingStrategy()
-        //        }
-        //    });
-
-        //    var cars = new List<Car>();
-        //    var partsCars = new List<PartCar>();
-
-        //    var validPartIds = context.Parts
-        //            .Select(p => p.Id)
-        //            .ToList();
-
-        //    foreach (var model in carsDto)
-        //    {
-        //        var currentCar = Mapper.Map<Car>(model);
-        //        cars.Add(currentCar);
-
-        //        foreach (var partId in model.PartsId)
-        //        {
-        //            if (validPartIds.Contains(partId))
-        //            {
-        //                var currentPartCar = new PartCar { PartId = partId, CarId = currentCar.Id };
-
-        //                if (currentCar.PartCars.FirstOrDefault(p => p.PartId == partId) == null)
-        //                {
-        //                    partsCars.Add(currentPartCar);
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    context.Cars.AddRange(cars);
-        //    context.PartCars.AddRange(partsCars);
-
-        //    context.SaveChanges();
-
-        //    return String.Format(importResult, cars.Count);
-        //}
-
+        //Task 11
         public static string ImportCars(CarDealerContext context, string inputJson)
         {
-            var carsJson = JsonConvert.DeserializeObject<CarWithPartsId[]>(inputJson);
+            var carsJson = JsonConvert.DeserializeObject<CarWithPartsIdDto[]>(inputJson);
 
             var validPartIds = context.Parts
                 .Select(p => p.Id)
-                .ToList();
+                .ToArray();
 
             var cars = new List<Car>();
             var partsCars = new List<PartCar>();
