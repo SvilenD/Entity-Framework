@@ -2,11 +2,9 @@
 {
     using System;
     using System.Globalization;
-    using System.Linq;
     using AutoMapper;
     
     using Cinema.Data.Models;
-    using Cinema.DataProcessor.ExportDto;
     using Cinema.DataProcessor.ImportDto;
 
     public class CinemaProfile : Profile

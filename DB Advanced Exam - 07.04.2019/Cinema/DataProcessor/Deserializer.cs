@@ -1,16 +1,17 @@
 ﻿namespace Cinema.DataProcessor
 {
     using System;
+    using System.IO;
     using System.Text;
+    using System.Linq;
     using System.Collections.Generic;
+    using System.Xml.Serialization;
     using System.ComponentModel.DataAnnotations;
     using Newtonsoft.Json;
+
     using Data;
     using Cinema.Data.Models;
     using Cinema.DataProcessor.ImportDto;
-    using System.Xml.Serialization;
-    using System.IO;
-    using System.Linq;
 
     public class Deserializer
     {

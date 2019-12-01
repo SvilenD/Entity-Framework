@@ -1,15 +1,15 @@
 ﻿namespace Cinema.DataProcessor
 {
     using System;
+    using System.IO;
     using System.Linq;
+    using System.Text;
+    using System.Xml;
+    using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     using Data;
     using Cinema.DataProcessor.ExportDto;
-    using Newtonsoft.Json;
-    using System.Xml.Serialization;
-    using System.Text;
-    using System.IO;
-    using System.Xml;
 
     public class Serializer
     {
@@ -18,12 +18,14 @@
             var topMovies = context.Movies
                 .Where(r => r.Rating >= rating && r.Projections.Any(t => t.Tickets.Count >= 1))
                 .OrderByDescending(m => m.Rating)
-                .ThenByDescending(m => m.Projections.Sum(p => p.Tickets.Sum(t => t.Price)))
+                .ThenByDescending(m => m.Projections
+                    .Sum(p => p.Tickets.Sum(t => t.Price)))
                 .Select(m => new ExportMovieDto
                 {
                     Title = m.Title,
                     Rating = m.Rating.ToString("F2"),
-                    TotalIncomes = m.Projections.Sum(p => p.Tickets.Sum(t => t.Price)).ToString("F2"),
+                    TotalIncomes = m.Projections
+                        .Sum(p => p.Tickets.Sum(t => t.Price)).ToString("F2"),
                     Customers = m.Projections
                         .SelectMany(p => p.Tickets)
                         .Select(c => new ExportMovieCustomerDto
@@ -55,7 +57,8 @@
                 {
                     FirstName = c.FirstName,
                     LastName = c.LastName,
-                    SpentMoney = c.Tickets.Sum(p => p.Price).ToString("F2"),
+                    SpentMoney = c.Tickets
+                        .Sum(p => p.Price).ToString("F2"),
                     SpentTime = TimeSpan.FromSeconds(c.Tickets
                         .Sum(t => t.Projection.Movie.Duration.TotalSeconds)).ToString(@"hh\:mm\:ss")
                 })

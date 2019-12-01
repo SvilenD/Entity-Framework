@@ -1,7 +1,7 @@
 ﻿namespace Cinema.DataProcessor.ImportDto
 {
-    using System.ComponentModel.DataAnnotations;
     using System.Xml.Serialization;
+    using System.ComponentModel.DataAnnotations;
 
     using static Data.Configuration;
 
