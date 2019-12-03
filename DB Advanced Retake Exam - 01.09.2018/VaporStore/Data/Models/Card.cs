@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using VaporStore.Data.Models.Enums;
+
     using static ModelConstants;
 
     public class Card

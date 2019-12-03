@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using VaporStore.Data.Models;
+
     using static Data.ModelConstants;
 
     public class UserImportDto

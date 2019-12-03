@@ -1,21 +1,21 @@
 ﻿namespace VaporStore.DataProcessor
 {
     using System;
+    using System.IO;
     using System.Linq;
     using System.Collections.Generic;
     using System.Text;
     using System.Globalization;
     using System.ComponentModel.DataAnnotations;
+    using System.Xml.Serialization;
     using Microsoft.EntityFrameworkCore;
     using Newtonsoft.Json;
 
     using Data;
-    using VaporStore.DataProcessor.ImportDtos;
     using VaporStore.Data.Models;
-    using static OutputConstants;
-    using System.Xml.Serialization;
-    using System.IO;
     using VaporStore.Data.Models.Enums;
+    using VaporStore.DataProcessor.ImportDtos;
+    using static OutputConstants;
 
     public static class Deserializer
     {

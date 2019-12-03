@@ -7,9 +7,9 @@
     using System.Text;
     using System.Xml;
     using System.Xml.Serialization;
-    using Data;
-    using Microsoft.EntityFrameworkCore;
     using Newtonsoft.Json;
+
+    using Data;
     using VaporStore.DataProcessor.ExportDtos;
 
     public static class Serializer

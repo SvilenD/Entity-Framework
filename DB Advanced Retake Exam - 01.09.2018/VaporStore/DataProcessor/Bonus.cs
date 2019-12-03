@@ -1,8 +1,10 @@
 ﻿namespace VaporStore.DataProcessor
 {
-	using System;
+    using System;
     using System.Linq;
+
     using Data;
+    using static OutputConstants;
 
 	public static class Bonus
 	{
@@ -13,17 +15,17 @@
                 .FirstOrDefault(u => u.Username == username);
             if (user == null)
             {
-                return $"User {username} not found";
+                return String.Format(UserNotFoundMsg, username);
             }
             else if (users.Any(u=>u.Email == newEmail))
             {
-                return $"Email {newEmail} is already taken";
+                return String.Format(EmailIsTakenMsg, newEmail); 
             }
             else
             {
                 user.Email = newEmail;
                 context.SaveChanges();
-                return $"Changed {username}'s email successfully";
+                return String.Format(EmailChangedSuccessfully, username); 
             }
 		}
 	}
