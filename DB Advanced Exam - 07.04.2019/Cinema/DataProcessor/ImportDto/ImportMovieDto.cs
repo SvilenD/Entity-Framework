@@ -1,9 +1,9 @@
 ﻿namespace Cinema.DataProcessor.ImportDto
 {
-    using System;
     using System.ComponentModel.DataAnnotations;
 
     using static Data.Configuration;
+
     public class ImportMovieDto
     {
         [Required]

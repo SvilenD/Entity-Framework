@@ -16,7 +16,7 @@
         public bool Is3D { get; set; }
 
         [JsonProperty("Seats")]
-        [Range(typeof(int), "1", "2147483647")]
+        [Range(1, int.MaxValue)]
         public int SeatCount { get; set; }
     }
 }

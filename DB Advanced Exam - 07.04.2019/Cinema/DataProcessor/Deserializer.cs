@@ -96,8 +96,7 @@
 
             var projectionDtos = (ImportProjectionDto[])xmlSerializer.Deserialize(new StringReader(xmlString));
 
-            var movieIds = context.Movies
-                .Select(m => m.Id)
+            var movies = context.Movies
                 .ToList();
             var hallIds = context.Halls
                 .Select(h => h.Id)
@@ -107,7 +106,7 @@
             var result = new StringBuilder();
             foreach (var dto in projectionDtos)
             {
-                if (hallIds.Contains(dto.HallId) == false || movieIds.Contains(dto.MovieId) == false)
+                if (hallIds.Contains(dto.HallId) == false || movies.Select(m => m.Id).Contains(dto.MovieId) == false)
                 {
                     result.AppendLine(ErrorMessage);
                     continue;
@@ -115,7 +114,7 @@
 
                 var projection = AutoMapper.Mapper.Map<Projection>(dto);
                 projections.Add(projection);
-                var movieTitle = context.Movies.FirstOrDefault(m => m.Id == dto.MovieId).Title;
+                var movieTitle = movies.FirstOrDefault(m => m.Id == dto.MovieId).Title;
                 result.AppendLine(String.Format(SuccessfulImportProjection, movieTitle, projection.DateTime.ToString("MM/dd/yyyy")));
             }
 
