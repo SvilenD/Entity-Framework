@@ -9,6 +9,8 @@
     using PetStore.Services.Models.Brand;
     using PetStore.Services.Models.Toy;
 
+    using static Validator;
+
     public class BrandService : IBrandService
     {
         private readonly PetStoreDbContext data;
@@ -20,17 +22,18 @@
 
         public int Create(string name)
         {
-            if (name.Length > DataValidation.NameMaxLength)
+            if (this.data.Brands.Any(br => br.Name == name))
             {
-                throw new InvalidOperationException($"Brand name cannot be more than {DataValidation.NameMaxLength}");
-            }
-
-            if (this.data.Brands.Any(br=>br.Name == name))
-            {
-                throw new InvalidOperationException($"Brand name {name} already exists.");
+                throw new InvalidOperationException(String.Format(OutputMessages.BrandAlreadyExists, name));
             }
 
             var brand = new Brand { Name = name };
+
+            if (IsValid(brand) == false)
+            {
+                throw new InvalidOperationException(OutputMessages.InvalidBrand);
+            }
+
             this.data.Brands.Add(brand);
             this.data.SaveChanges();
 
@@ -56,12 +59,14 @@
         }
 
         public IEnumerable<BrandListingServiceModel> SearchByName(string name)
-            => this.data.Brands.Where(b => b.Name.ToLower().Contains(name.ToLower()))
+        {
+            return this.data.Brands.Where(b => b.Name.ToLower().Contains(name.ToLower()))
                 .Select(br => new BrandListingServiceModel
                 {
                     Id = br.Id,
                     Name = br.Name
                 })
                 .ToList();
+        }
     }
 }

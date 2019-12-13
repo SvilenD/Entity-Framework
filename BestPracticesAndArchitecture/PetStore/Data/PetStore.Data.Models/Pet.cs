@@ -3,7 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    using static DataValidation;
+    using static Validations.DataValidation;
 
     public class Pet
     {

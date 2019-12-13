@@ -3,11 +3,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using static DataValidation;
+    using static Validations.DataValidation;
 
-    /// <summary>
-    /// Each Category is for each Animal
-    /// </summary>
     public class Category
     {
         public int Id { get; set; }

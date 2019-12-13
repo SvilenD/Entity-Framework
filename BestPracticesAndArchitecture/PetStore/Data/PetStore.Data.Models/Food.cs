@@ -4,21 +4,28 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using static DataValidation;
-    
+    using Models.Validations;
+    using static Validations.DataValidation;
+
     public class Food
     {
         public int Id { get; set; }
-
 
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         public string Name { get; set; }
         //in KG
+        [Range(WeightMinValue, WeightMaxValue)]
         public double Weight { get; set; }
+
+        public decimal DistributorPrice { get; set; }
 
         public decimal Price { get; set; }
 
+        [Range(0, int.MaxValue)]
+        public int Quantity { get; set; }
+
+        [CustomDateAttribute]
         public DateTime ExpirationDate { get; set; }
 
         public int BrandId { get; set; }
