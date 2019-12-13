@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using static DataValidation.User;
+    using static Validations.DataValidation.User;
 
     public class User
     {
