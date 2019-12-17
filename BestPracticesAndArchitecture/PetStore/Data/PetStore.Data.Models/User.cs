@@ -17,6 +17,8 @@
         [EmailAddress]
         public string Email { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public ICollection<Order> Orders { get; set; } = new HashSet<Order>();
     }
 }

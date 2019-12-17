@@ -9,6 +9,8 @@
         public const string FoodNotExists = "Food with Id {0} not exists";
         public const string InvalidToy = "Invalid Toy";
         public const string OrderNotExists = "Order with Id {0} not exists";
+        public const string ToyNotExists = "Toy with Id {0} not exists";
         public const string UserNotExists = "User with Id {0} not exists";
+        public const string InvalidUser = "Invalid User";
     }
 }

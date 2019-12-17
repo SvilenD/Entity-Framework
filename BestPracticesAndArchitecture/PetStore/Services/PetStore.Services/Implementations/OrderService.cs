@@ -1,18 +1,19 @@
 ﻿namespace PetStore.Services.Implementations
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
+
     using PetStore.Data;
     using PetStore.Data.Models;
 
     public class OrderService : IOrderService
     {
         private readonly PetStoreDbContext data;
+        private readonly UserService userService;
 
-        public OrderService(PetStoreDbContext data)
+        public OrderService(PetStoreDbContext data, UserService userService)
         {
             this.data = data;
+            this.userService = userService;
         }
 
         public void CancelOrder(int orderId)
@@ -24,7 +25,26 @@
                 throw new ArgumentNullException(String.Format(OutputMessages.OrderNotExists, orderId));
             }
 
-            order.Status = OrderStatus.Completed;
+            order.Status = OrderStatus.Cancelled;
+            foreach (var food in order.Foods)
+            {
+                int quantity = food.Food.Quantity;
+                var returnedFood = this.data.Foods.Find(food.FoodId);
+
+                returnedFood.Quantity += quantity;
+            }
+
+            foreach (var toy in order.Toys)
+            {
+                int quantity = toy.Toy.Quantity;
+                var returnedToy = this.data.Toys.Find(toy.ToyId);
+
+                returnedToy.Quantity += quantity;
+            }
+
+            foreach (var pet in order.Pets)
+            {
+            }
             this.data.SaveChanges();
         }
 
@@ -37,13 +57,13 @@
                 throw new ArgumentNullException(String.Format(OutputMessages.OrderNotExists, orderId));
             }
 
-            order.Status = OrderStatus.Cancelled;
+            order.Status = OrderStatus.Completed;
             this.data.SaveChanges();
         }
 
         public int CreateOrder(int userId)
         {
-            if (this.data.Users.Any(u=>u.Id == userId) == false)
+            if (userService.Exists(userId) == false)
             {
                 throw new InvalidOperationException(String.Format(OutputMessages.UserNotExists, userId));
             }

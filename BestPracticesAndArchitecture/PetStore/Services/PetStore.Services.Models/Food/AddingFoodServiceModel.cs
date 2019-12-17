@@ -12,6 +12,8 @@
 
         public double Profit { get; set; }
 
+        public int Quantity { get; set; }
+
         public DateTime ExpirationDate { get; set; }
 
         public int BrandId { get; set; }

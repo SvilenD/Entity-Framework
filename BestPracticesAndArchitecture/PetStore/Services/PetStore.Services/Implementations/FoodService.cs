@@ -19,7 +19,7 @@
             this.data = data;
         }
 
-        public void BuyFromDistributor(string name, double weight, decimal price, double profit, DateTime expiration, int brandId, int categoryId)
+        public void BuyFromDistributor(string name, double weight, decimal price, double profit, int quantity, DateTime expiration, int brandId, int categoryId)
         {
             if (this.data.Brands.Any(b => b.Id == brandId) == false)
             {
@@ -30,7 +30,7 @@
                 throw new InvalidOperationException(OutputMessages.InvalidCategory);
             }
 
-            var food = CreateFood(name, weight, price, profit, expiration, brandId, categoryId);
+            var food = CreateFood(name, weight, price, profit, quantity, expiration, brandId, categoryId);
 
             if (IsValid(food) == false)
             {
@@ -52,7 +52,7 @@
                 throw new InvalidOperationException(OutputMessages.InvalidCategory);
             }
 
-            var food = CreateFood(model.Name, model.Weight, model.Price, model.Profit, model.ExpirationDate, model.BrandId, model.CategoryId);
+            var food = CreateFood(model.Name, model.Weight, model.Price, model.Profit, model.Quantity, model.ExpirationDate, model.BrandId, model.CategoryId);
 
             if (IsValid(food) == false)
             {
@@ -90,7 +90,7 @@
             {
                 var food = this.data.Foods.Find(id);
 
-                if (food == null)
+                if (food == null || food.Quantity < 1)
                 {
                     throw new InvalidOperationException(String.Format(OutputMessages.FoodNotExists, id));
                 }
@@ -102,13 +102,14 @@
                 };
 
                 food.Quantity--;
+                food.Orders.Add(foodOrder);
                 order.Foods.Add(foodOrder);
             }
 
             this.data.SaveChanges();
         }
 
-        private Food CreateFood(string name, double weight, decimal price, double profit, DateTime expiration, int brandId, int categoryId)
+        private Food CreateFood(string name, double weight, decimal price, double profit, int quantity, DateTime expiration, int brandId, int categoryId)
         {
             return new Food()
             {
@@ -116,6 +117,7 @@
                 Weight = weight,
                 DistributorPrice = price,
                 Price = price + (price * (decimal)profit),
+                Quantity = quantity,
                 ExpirationDate = expiration,
                 BrandId = brandId,
                 CategoryId = categoryId

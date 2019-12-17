@@ -5,6 +5,9 @@
 
     using static Validations.DataValidation;
 
+    /// <summary>
+    /// For each type of Animal, e.g Cats, Dogs...
+    /// </summary>
     public class Category
     {
         public int Id { get; set; }

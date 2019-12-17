@@ -13,6 +13,9 @@
 
             user.HasIndex(u => u.UserName)
                 .IsUnique();
+
+            user.Property(u => u.IsDeleted)
+                .HasDefaultValue(false);
         }
     }
 }

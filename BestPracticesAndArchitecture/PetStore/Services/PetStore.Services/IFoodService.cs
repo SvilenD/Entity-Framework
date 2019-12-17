@@ -6,12 +6,12 @@
 
     public interface IFoodService
     {
-        void BuyFromDistributor(string name, double weight, decimal price, double profit, DateTime expiration, int brandId, int categoryId);
+        void BuyFromDistributor(string name, double weight, decimal price, double profit, int quantity, DateTime expiration, int brandId, int categoryId);
 
         void BuyFromDistributor(AddingFoodServiceModel foodServiceModel);
 
         IEnumerable<FoodListingServiceModel> SearchByName(string name);
 
-        void SellFoodToUser(int foodId, int orderId);
+        void SellFoodToUser(List<int> foodIds, int orderId);
     }
 }

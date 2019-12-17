@@ -10,7 +10,9 @@
         public DbSet<Category> Categories { get; set; }
         public DbSet<Food> Foods { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Pet> Pets { get; set; }
         public DbSet<Toy> Toys { get; set; }
+        public DbSet<ToyOrder> ToyOrders { get; set; }
         public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
