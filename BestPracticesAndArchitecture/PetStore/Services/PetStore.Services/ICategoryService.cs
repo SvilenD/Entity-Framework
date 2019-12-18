@@ -7,6 +7,8 @@
     {
         int Create(string name);
 
+        void AddDescription(string name, string description);
+
         IEnumerable<CategoryListingServiceModel> SearchByName(string name);
     }
 }
