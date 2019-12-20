@@ -13,6 +13,8 @@
 
         public DateTime DateOfBirth { get; set; }
 
+        public decimal DistributorPrice { get; set; }
+
         public decimal Price { get; set; }
 
         [MaxLength(DescriptionMaxLength)]

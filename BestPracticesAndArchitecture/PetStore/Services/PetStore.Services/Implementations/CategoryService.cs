@@ -30,6 +30,7 @@
                 throw new InvalidOperationException(OutputMessages.InvalidCategory);
             }
             this.data.Categories.Add(category);
+            this.data.SaveChanges();
 
             return category.Id;
         }

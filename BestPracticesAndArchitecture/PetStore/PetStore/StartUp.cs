@@ -11,8 +11,11 @@
         {
             using var data = new PetStoreDbContext();
 
-            var brandService = new BrandService(data);
-            brandService.Create("Whiskas");
+            //var brandService = new BrandService(data);
+            //brandService.Create("Brand1");
+
+            var categoryService = new CategoryService(data);
+            categoryService.Create("Dogs");
 
             var foodService = new FoodService(data);
             foodService.BuyFromDistributor("Unknown", 0.5, 5.5m, 1.2, 10, DateTime.Parse("20/02/2020"), 1, 1);
