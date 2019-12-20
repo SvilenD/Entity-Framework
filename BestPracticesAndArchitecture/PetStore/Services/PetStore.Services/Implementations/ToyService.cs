@@ -63,8 +63,7 @@
         }
 
         public IEnumerable<ToyListingServiceModel> SearchByName(string name)
-        {
-            return this.data.Toys
+             => this.data.Toys
                 .Where(t => t.Name.ToLower().Contains(name.ToLower()))
                 .Select(t => new ToyListingServiceModel
                 {
@@ -74,7 +73,6 @@
                     Quantity = t.Quantity
                 })
                 .ToList();
-        }
 
         public void SellToysToUser(List<int> toyIds, int orderId)
         {
@@ -108,8 +106,7 @@
         }
 
         private Toy CreateToy(string name, string description, decimal price, double profit, int quantity, int brandId, int categoryId)
-        {
-            return new Toy()
+            => new Toy()
             {
                 Name = name,
                 Description = description,
@@ -119,6 +116,5 @@
                 BrandId = brandId,
                 CategoryId = categoryId
             };
-        }
     }
 }

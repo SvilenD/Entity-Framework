@@ -30,7 +30,9 @@
             .Where(u=>u.IsDeleted == false)
             .Any(u => u.Id == userId);
 
-        public int FindUser(string userName) => this.data.Users.FirstOrDefault(u => u.UserName == userName).Id;
+        public int FindUser(string userName) 
+            => this.data.Users
+            .FirstOrDefault(u => u.UserName == userName).Id;
 
         public void Register(string userName, string email)
         {

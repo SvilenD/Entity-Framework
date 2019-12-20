@@ -41,8 +41,7 @@
         }
 
         public BrandWithToysServiceModel FindByIdWithToys(int id)
-        {
-            return this.data.Brands
+            => this.data.Brands
                 .Where(br => br.Id == id)
                 .Select(br => new BrandWithToysServiceModel
                 {
@@ -56,17 +55,15 @@
                     })
                 })
                 .FirstOrDefault();
-        }
 
         public IEnumerable<BrandListingServiceModel> SearchByName(string name)
-        {
-            return this.data.Brands.Where(b => b.Name.ToLower().Contains(name.ToLower()))
+            => this.data.Brands
+                .Where(b => b.Name.ToLower().Contains(name.ToLower()))
                 .Select(br => new BrandListingServiceModel
                 {
                     Id = br.Id,
                     Name = br.Name
                 })
                 .ToList();
-        }
     }
 }
