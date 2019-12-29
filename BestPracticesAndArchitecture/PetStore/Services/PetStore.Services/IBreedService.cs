@@ -5,7 +5,7 @@
 
     public interface IBreedService
     {
-        int Create(string name);
+        int Add(string name);
 
         bool Exists(string name);
 

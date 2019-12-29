@@ -12,24 +12,24 @@
             using var data = new PetStoreDbContext();
 
             //var brandService = new BrandService(data);
-            //brandService.Create("Brand1");
+            //brandService.Add("Brand1");
 
-            var categoryService = new CategoryService(data);
-            categoryService.Create("Dogs");
+            //var categoryService = new CategoryService(data);
+            //categoryService.Create("Dogs");
 
-            var foodService = new FoodService(data);
-            foodService.BuyFromDistributor("Unknown", 0.5, 5.5m, 1.2, 10, DateTime.Parse("20/02/2020"), 1, 1);
+            //var foodService = new FoodService(data);
+            //foodService.BuyFromDistributor("Unknown", 0.5, 5.5m, 1.2, 10, DateTime.Parse("20/02/2020"), 1, 1);
 
-            var toyService = new ToyService(data);
-            toyService.BuyFromDistributor("Ball", null, 2, 0.7, 3, 1, 1);
+            //var toyService = new ToyService(data);
+            //toyService.BuyFromDistributor("Ball", null, 2, 0.7, 3, 1, 1);
 
-            var userService = new UserService(data);
-            userService.Register("User1", "User1@gmail.com");
+            //var userService = new UserService(data);
+            //userService.Register("User2", "User2@gmail.com");
 
-            var orderService = new OrderService(data, userService);
-            orderService.CreateOrder(1);
+            //var orderService = new OrderService(data, userService);
+            //orderService.CreateOrder(1);
 
-            foodService.SellFoodToUser(new List<int>() { 1 }, 1);
+            //foodService.SellFoodToUser(new List<int>() { 1 }, 1);
         }
     }
 }

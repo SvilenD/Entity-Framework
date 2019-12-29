@@ -6,10 +6,12 @@
 
     public interface IBrandService
     {
-        int Create(string name);
+        int Add(string name);
 
         IEnumerable<BrandListingServiceModel> SearchByName(string name);
 
         BrandWithToysServiceModel FindByIdWithToys(int id);
+
+        bool Exists(int brandId);
     }
 }

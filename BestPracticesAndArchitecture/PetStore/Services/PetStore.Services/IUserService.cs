@@ -8,6 +8,8 @@
 
         bool Exists(int userId);
 
+        bool Exists(string userNameOrEmail);
+
         void DeleteUser(int userId);
     }
 }

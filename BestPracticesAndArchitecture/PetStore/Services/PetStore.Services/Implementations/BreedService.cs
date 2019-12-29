@@ -19,7 +19,7 @@
             this.data = data;
         }
 
-        public int Create(string name)
+        public int Add(string name)
         {
             if (this.Exists(name))
             {

@@ -13,8 +13,10 @@
 
         public DateTime DateOfBirth { get; set; }
 
+        [Range(0, double.MaxValue)]
         public decimal DistributorPrice { get; set; }
 
+        [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
 
         [MaxLength(DescriptionMaxLength)]

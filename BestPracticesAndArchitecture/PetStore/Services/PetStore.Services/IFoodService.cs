@@ -13,5 +13,7 @@
         IEnumerable<FoodListingServiceModel> SearchByName(string name);
 
         void SellFoodToUser(List<int> foodIds, int orderId);
+
+        bool Exists(int foodId);
     }
 }

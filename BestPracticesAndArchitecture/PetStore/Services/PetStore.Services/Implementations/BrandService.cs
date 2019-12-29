@@ -20,7 +20,7 @@
             this.data = data;
         }
 
-        public int Create(string name)
+        public int Add(string name)
         {
             if (this.data.Brands.Any(br => br.Name == name))
             {
@@ -39,6 +39,9 @@
 
             return brand.Id;
         }
+
+        public bool Exists(int brandId)
+            => this.data.Brands.Any(b => b.Id == brandId);
 
         public BrandWithToysServiceModel FindByIdWithToys(int id)
             => this.data.Brands

@@ -12,5 +12,7 @@
         IEnumerable<ToyListingServiceModel> SearchByName(string name);
 
         void SellToysToUser(List<int> toyIds, int orderId);
+
+        bool Exists(int toyId);
     }
 }

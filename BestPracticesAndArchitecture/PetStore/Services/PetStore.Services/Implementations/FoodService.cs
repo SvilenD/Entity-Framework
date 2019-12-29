@@ -63,6 +63,9 @@
             this.data.SaveChanges();
         }
 
+        public bool Exists(int foodId)
+            => this.data.Foods.Any(f => f.Id == foodId);
+
         public IEnumerable<FoodListingServiceModel> SearchByName(string name)
         {
             return this.data.Foods

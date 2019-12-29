@@ -105,6 +105,9 @@
             this.data.SaveChanges();
         }
 
+        public bool Exists(int toyId)
+            => this.data.Toys.Any(t => t.Id == toyId);
+
         private Toy CreateToy(string name, string description, decimal price, double profit, int quantity, int brandId, int categoryId)
             => new Toy()
             {

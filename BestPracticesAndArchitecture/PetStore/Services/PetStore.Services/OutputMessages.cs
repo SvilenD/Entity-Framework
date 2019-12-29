@@ -9,10 +9,14 @@
         public const string InvalidCategory = "Invalid Category";
         public const string InvalidFood = "Invalid Food";
         public const string FoodNotExists = "Food with Id {0} not exists";
-        public const string InvalidToy = "Invalid Toy";
         public const string OrderNotExists = "Order with Id {0} not exists";
+        public const string InvalidPet = "Invalid Pet";
+        public const string PetNotExists = "Pet with Id {0} not exists";
+        public const string InvalidToy = "Invalid Toy";
         public const string ToyNotExists = "Toy with Id {0} not exists";
         public const string UserNotExists = "User with Id {0} not exists";
+        public const string UserNameAlreadyExists = "User with UserName: {0} already exists";
+        public const string UserEmailAlreadyExists = "User with Email: {0} already exists";
         public const string InvalidUser = "Invalid User";
     }
 }
