@@ -72,11 +72,6 @@ body {
 
 .pageNumber {
     position: relative;
-    bottom: 11%;
+    bottom: 5%;
     color: gray;
-}
-
-.center {
-    display: block;
-    text-align: center;
 }

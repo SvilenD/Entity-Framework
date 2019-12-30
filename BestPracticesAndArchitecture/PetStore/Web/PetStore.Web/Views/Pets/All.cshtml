@@ -1,6 +1,6 @@
 ﻿@model AllPetsViewModel
 
-<h1 class="center">Pets In PetStore.</h1>
+<h1 class="text-center">Pets In PetStore.</h1>
 
 <table class="table table-bordered table-striped">
     <tr>
@@ -49,7 +49,7 @@
     }
 </table>
 
-<div>
+<p>
     @if (@Model.PreviousDisabled == false)
     {
         <a href="/Pets/All?page=@Model.PreviousPage" class="float-left  btn btn-info">Previous</a>
@@ -58,6 +58,6 @@
     {
         <a href="/Pets/All?page=@Model.NextPage" class="float-right btn btn-info">Next</a>
     }
-</div>
+</p>
 
-<h6 class="pageNumber center"> Page @Model.CurrentPage</h6>
+<h6 class="pageNumber text-center"> Page @Model.CurrentPage</h6>
