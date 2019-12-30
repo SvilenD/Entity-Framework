@@ -9,6 +9,8 @@
 
         bool Exists(string name);
 
+        bool Exists(int id);
+
         IEnumerable<BreedListingServiceModel> SearchByName(string name);
 
         BreedWithPetsServiceModel FindByIdWithPets(int id);

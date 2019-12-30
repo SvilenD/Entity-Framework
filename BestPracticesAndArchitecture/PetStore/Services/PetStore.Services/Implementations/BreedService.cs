@@ -43,6 +43,10 @@
             => this.data.Breeds
             .Any(b => b.Name.ToLower() == name.ToLower());
 
+        public bool Exists(int id)
+            => this.data.Breeds
+            .Any(b => b.Id == id);
+
         public BreedWithPetsServiceModel FindByIdWithPets(int id)
             => this.data.Breeds
                 .Where(b => b.Id == id)

@@ -7,6 +7,10 @@
     {
         int Create(string name);
 
+        bool Exists(string name);
+
+        bool Exists(int id);
+
         void AddDescription(string name, string description);
 
         IEnumerable<CategoryListingServiceModel> SearchByName(string name);

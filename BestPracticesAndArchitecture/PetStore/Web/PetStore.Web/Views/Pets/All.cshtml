@@ -1,0 +1,63 @@
+﻿@model AllPetsViewModel
+
+<h1 class="center">Pets In PetStore.</h1>
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>
+            Category
+        </th>
+        <th>
+            Breed
+        </th>
+        <th>
+            Gender
+        </th>
+        <th>
+            Date Of Birth
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Description
+        </th>
+    </tr>
+
+    @foreach (var pet in @Model.Pets.OrderBy(p => p.Category).ThenBy(p => p.Breed))
+    {
+        <tr>
+            <td>
+                @pet.Category
+            </td>
+            <td>
+                @pet.Breed
+            </td>
+            <td>
+                @pet.Gender
+            </td>
+            <td>
+                @pet.DateOfBirth
+            </td>
+            <td>
+                <b>$@pet.Price</b>
+            </td>
+            <td>
+                @pet.Description
+            <td>
+        </tr>
+    }
+</table>
+
+<div>
+    @if (@Model.PreviousDisabled == false)
+    {
+        <a href="/Pets/All?page=@Model.PreviousPage" class="float-left  btn btn-info">Previous</a>
+    }
+    @if (@Model.NextDisabled == false)
+    {
+        <a href="/Pets/All?page=@Model.NextPage" class="float-right btn btn-info">Next</a>
+    }
+</div>
+
+<h6 class="pageNumber center"> Page @Model.CurrentPage</h6>

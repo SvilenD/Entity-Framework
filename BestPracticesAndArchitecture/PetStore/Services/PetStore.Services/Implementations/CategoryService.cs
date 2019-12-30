@@ -35,6 +35,15 @@
             return category.Id;
         }
 
+
+        public bool Exists(string name)
+            => this.data.Categories
+            .Any(c => c.Name.ToLower() == name.ToLower());
+
+        public bool Exists(int id)
+            => this.data.Categories
+            .Any(c => c.Id == id);
+
         public IEnumerable<CategoryListingServiceModel> SearchByName(string name)
         {
             return this.data.Categories
